@@ -20,6 +20,7 @@ CREATE TABLE "dashboard" (
     "username" TEXT,
     "password" TEXT,
     "description" TEXT NOT NULL,
+    "server" TEXT NOT NULL,
     "owner_id" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 

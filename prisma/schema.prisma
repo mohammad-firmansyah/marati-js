@@ -24,6 +24,7 @@ model dashboard {
   username    String?
   password    String?
   description String
+  server      String
   owner       user       @relation(fields: [owner_id], references: [id])
   owner_id    String
   components  component[]
