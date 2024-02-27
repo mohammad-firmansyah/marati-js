@@ -19,7 +19,7 @@ export class DashboardController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.dashboardService.findOne(+id);
+    return this.dashboardService.findOne(id);
   }
 
   @Patch(':id')

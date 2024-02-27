@@ -18,12 +18,14 @@ export class DashboardService {
     return newDashboard
   }
 
-  findAll() {
-    return `This action returns all dashboard`;
+  async findAll() {
+    const Dashboards = await this.prisma.dashboard.findMany()
+    return Dashboards;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} dashboard`;
+  async findOne(id: string) {
+    const Dashboard = await this.prisma.dashboard.findUnique({where: {id: id}})
+    return Dashboard
   }
 
   update(id: number, updateDashboardDto: UpdateDashboardDto) {
