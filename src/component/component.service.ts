@@ -1,11 +1,21 @@
 import { Injectable } from '@nestjs/common';
 import { CreateComponentDto } from './dto/create-component.dto';
 import { UpdateComponentDto } from './dto/update-component.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class ComponentService {
-  create(createComponentDto: CreateComponentDto) {
-    return 'This action adds a new component';
+
+  constructor(
+    private prisma : PrismaService
+  ){}
+
+  async create(createComponentDto: CreateComponentDto) {
+    const Component = await this.prisma.component.create({
+      data:{
+        ...createComponentDto,
+      }
+    });
   }
 
   findAll() {

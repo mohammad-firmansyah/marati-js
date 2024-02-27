@@ -36,14 +36,14 @@ model component {
   type         ComponentType
   x            Int
   y            Int
-  dashboard    dashboard    @relation(fields: [dashboard_id], references: [id])
-  dashboard_id String
   content      String
   topic        String?
   rules        Json?
   model_id     String
-  model        model        @relation(fields: [model_id], references: [id])
+  dashboard_id String
   created_at   DateTime     @default(now())
+  dashboard    dashboard    @relation(fields: [dashboard_id], references: [id])
+  model        model        @relation(fields: [model_id], references: [id])
 }
 
 model model {
