@@ -24,7 +24,7 @@ export class DashboardController {
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateDashboardDto: UpdateDashboardDto) {
-    return this.dashboardService.update(+id, updateDashboardDto);
+    return this.dashboardService.update(id, updateDashboardDto);
   }
 
   @Delete(':id')

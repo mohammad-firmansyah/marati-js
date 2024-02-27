@@ -19,17 +19,22 @@ export class DashboardService {
   }
 
   async findAll() {
-    const Dashboards = await this.prisma.dashboard.findMany()
+    const Dashboards = await this.prisma.dashboard.findMany();
     return Dashboards;
   }
 
   async findOne(id: string) {
-    const Dashboard = await this.prisma.dashboard.findUnique({where: {id: id}})
-    return Dashboard
+    const Dashboard = await this.prisma.dashboard.findUnique({where: {id: id}});
+    return Dashboard;
   }
 
-  update(id: number, updateDashboardDto: UpdateDashboardDto) {
-    return `This action updates a #${id} dashboard`;
+  async update(id: string, updateDashboardDto: UpdateDashboardDto) {
+    const Dashboard = await this.prisma.dashboard.update({
+      where: {id},
+      data : updateDashboardDto
+    });
+
+    return Dashboard
   }
 
   remove(id: number) {
