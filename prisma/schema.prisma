@@ -1,19 +1,65 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  username  String
+model user {
+  id       String      @id @default(uuid())
+  email    String      @unique
+  username String
   password String
+  created_at DateTime  @default(now())
+  fullname String
+  dashboards dashboard[]
+  models    model[]
+}
 
+model dashboard {
+  id          String     @id @default(uuid())
+  name        String     @unique
+  username    String?
+  password    String?
+  description String
+  owner       user       @relation(fields: [owner_id], references: [id])
+  owner_id    String
+  components  component[]
+  created_at  DateTime   @default(now())
+}
+
+model component {
+  id           String       @id @default(uuid())
+  type         ComponentType
+  x            Int
+  y            Int
+  dashboard    dashboard    @relation(fields: [dashboard_id], references: [id])
+  dashboard_id String
+  content      String
+  topic        String?
+  rules        Json?
+  model_id     String
+  model        model        @relation(fields: [model_id], references: [id])
+  created_at   DateTime     @default(now())
+}
+
+model model {
+  id         String       @id @default(uuid())
+  name       String
+  filename   String
+  input      Json
+  output     Json
+  owner_id   String
+  owner      user         @relation(fields: [owner_id], references: [id])
+  components component[]
+  createdAt  DateTime     @default(now())
+}
+
+enum ComponentType {
+  TEXT
+  SWITCH
+  GAUGE
+  LINEGRAPH
 }
