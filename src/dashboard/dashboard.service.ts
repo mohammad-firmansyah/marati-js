@@ -1,11 +1,21 @@
-import { Injectable } from '@nestjs/common';
+import { Body, Injectable } from '@nestjs/common';
 import { CreateDashboardDto } from './dto/create-dashboard.dto';
 import { UpdateDashboardDto } from './dto/update-dashboard.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class DashboardService {
-  create(createDashboardDto: CreateDashboardDto) {
-    return 'This action adds a new dashboard';
+  constructor(
+    private prisma : PrismaService
+  ){}
+
+  async create(createDashboardDto: CreateDashboardDto) {
+    const newDashboard = await this.prisma.dashboard.create({
+      data: {
+        ...createDashboardDto
+      },
+    });
+    return newDashboard
   }
 
   findAll() {
