@@ -29,6 +29,6 @@ export class DashboardController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.dashboardService.remove(+id);
+    return this.dashboardService.remove(id);
   }
 }

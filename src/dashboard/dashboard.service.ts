@@ -37,7 +37,7 @@ export class DashboardService {
     return Dashboard
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} dashboard`;
+  async remove(id: string) {
+    return await this.prisma.dashboard.delete({where:{id:id}})
   }
 }
