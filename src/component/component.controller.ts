@@ -24,7 +24,7 @@ export class ComponentController {
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateComponentDto: UpdateComponentDto) {
-    return this.componentService.update(+id, updateComponentDto);
+    return this.componentService.update(id, updateComponentDto);
   }
 
   @Delete(':id')

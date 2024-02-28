@@ -37,8 +37,11 @@ export class ComponentService {
     }
   }
 
-  update(id: number, updateComponentDto: UpdateComponentDto) {
-    return `This action updates a #${id} component`;
+  update(id: string, updateComponentDto: UpdateComponentDto) {
+    return {
+      'is_error':false,
+      'message':'data updated'
+    };
   }
 
   remove(id: number) {
