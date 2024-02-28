@@ -33,7 +33,7 @@ model dashboard {
 
 model component {
   id           String       @id @default(uuid())
-  type         String
+  type         ComponentType @default(TEXT)
   x            Int
   y            Int
   content      String
