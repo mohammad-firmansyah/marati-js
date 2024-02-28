@@ -1,11 +1,18 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { JsonObject } from "@prisma/client/runtime/library";
-import { IsJSON, IsNumber, IsString } from "class-validator";
+import { IsEnum, IsJSON, IsNumber, IsString } from "class-validator";
+
+export enum ComponentType {
+  TEXT = 'TEXT',
+  SWITCH = 'SWITCH',
+  GAUGE = 'GAUGE',
+  LINEGRAPH = 'LINEGRAPH'
+}
 
 export class CreateComponentDto {
     @ApiProperty()
-    @IsString()
-    type : string
+    @IsEnum(ComponentType)
+    type : ComponentType
     
     @ApiProperty()
     @IsNumber()
@@ -25,7 +32,7 @@ export class CreateComponentDto {
     
     @ApiProperty()
     @IsJSON()
-    rules : string
+    rules : JsonObject
     
     @ApiProperty()
     @IsString()
@@ -37,9 +44,3 @@ export class CreateComponentDto {
 }
 
 
-enum ComponentType {
-  TEXT,
-  SWITCH,
-  GAUGE,
-  LINEGRAPH
-}
