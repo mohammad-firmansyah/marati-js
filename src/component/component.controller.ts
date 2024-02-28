@@ -29,6 +29,6 @@ export class ComponentController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.componentService.remove(+id);
+    return this.componentService.remove(id);
   }
 }

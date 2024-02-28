@@ -49,7 +49,12 @@ export class ComponentService {
     };
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} component`;
+  async remove(id: string) {
+    const data = await this.prisma.component.delete({where:{id}})
+    return {
+      'is_error': false,
+      'message':'data removed',
+      'data': {}
+    }
   }
 }
