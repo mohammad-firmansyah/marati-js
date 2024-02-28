@@ -16,6 +16,11 @@ export class ModelController {
   findAll() {
     return this.modelService.findAll();
   }
+  
+  @Get(':id')
+  findAllByUser(@Param('id') id : string) {
+    return this.modelService.findAllByUser(id);
+  }
 
   @Get(':id')
   findOne(@Param('id') id: string) {

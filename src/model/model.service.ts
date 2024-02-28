@@ -14,17 +14,31 @@ export class ModelService {
       data: {
         ...createModelDto
       }
-    })
+    });
 
     return {
       'is_error':false,
       'message':'data created',
       'data':data
-    }
+    };
   }
 
-  findAll() {
-    return `This action returns all model`;
+  async findAll() {
+    const data = await this.prisma.model.findMany()
+    return {
+      'is_error':false,
+      'message':'get all models',
+      'data':data
+    }
+  }
+  
+  async findAllByUser(owner_id:string) {
+    const data = await this.prisma.model.findMany({where:{owner_id: owner_id}})
+    return {
+      'is_error':false,
+      'message':'get all user\'s models',
+      'data':data
+    }
   }
 
   findOne(id: number) {
