@@ -24,7 +24,7 @@ export class DashboardService {
   }
 
   async findOne(id: string) {
-    const Dashboard = await this.prisma.dashboard.findUnique({where: {id: id}});
+    const Dashboard = await this.prisma.dashboard.findFirst({where: {id: id}});
     return Dashboard;
   }
 
