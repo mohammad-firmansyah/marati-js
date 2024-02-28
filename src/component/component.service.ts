@@ -28,8 +28,13 @@ export class ComponentService {
     }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} component`;
+  async findOne(id: string) {
+    const data = await this.prisma.component.findFirst({where:{id:id}})
+    return {
+      'is_error':false,
+      'message':'get detail component',
+      'data':data
+    }
   }
 
   update(id: number, updateComponentDto: UpdateComponentDto) {

@@ -19,7 +19,7 @@ export class ComponentController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.componentService.findOne(+id);
+    return this.componentService.findOne(id);
   }
 
   @Patch(':id')
