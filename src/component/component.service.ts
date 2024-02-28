@@ -19,8 +19,13 @@ export class ComponentService {
 }
 
 
-  findAll() {
-    return `This action returns all component`;
+  async findAll(dashboardId : string) {
+    const data = await this.prisma.component.findMany({where:{dashboard_id:dashboardId}}) 
+    return {
+      'is_error':false,
+      'message':'get all data components',
+      'data': data
+    }
   }
 
   findOne(id: number) {

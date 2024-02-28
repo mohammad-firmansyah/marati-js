@@ -13,8 +13,8 @@ export class ComponentController {
   }
 
   @Get()
-  findAll() {
-    return this.componentService.findAll();
+  findAll(@Param('id') id : string) {
+    return this.componentService.findAll(id);
   }
 
   @Get(':id')
