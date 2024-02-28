@@ -11,12 +11,13 @@ export class ComponentService {
   ){}
 
   async create(createComponentDto: CreateComponentDto) {
-    const Component = await this.prisma.component.create({
+    return this.prisma.component.create({
       data:{
-        ...createComponentDto,
+        ...createComponentDto
       }
     });
-  }
+}
+
 
   findAll() {
     return `This action returns all component`;

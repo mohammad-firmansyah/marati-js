@@ -30,15 +30,15 @@ CREATE TABLE "dashboard" (
 -- CreateTable
 CREATE TABLE "component" (
     "id" TEXT NOT NULL,
-    "type" "ComponentType" NOT NULL,
+    "type" TEXT NOT NULL,
     "x" INTEGER NOT NULL,
     "y" INTEGER NOT NULL,
-    "dashboard_id" TEXT NOT NULL,
     "content" TEXT NOT NULL,
     "topic" TEXT,
     "rules" JSONB,
-    "model_id" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "dashboard_id" TEXT NOT NULL,
+    "model_id" TEXT NOT NULL,
 
     CONSTRAINT "component_pkey" PRIMARY KEY ("id")
 );

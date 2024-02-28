@@ -5,17 +5,15 @@ import { IsJSON, IsNumber, IsString } from "class-validator";
 export class CreateComponentDto {
     @ApiProperty()
     @IsString()
-    type : ComponentType
+    type : string
     
     @ApiProperty()
     @IsNumber()
-    x : Number
+    x : number
     
     @ApiProperty()
     @IsNumber()
-    y : Number
-    
-   
+    y :number
     
     @ApiProperty()
     @IsString()
@@ -27,12 +25,12 @@ export class CreateComponentDto {
     
     @ApiProperty()
     @IsJSON()
-    rules : Object
-
+    rules : string
+    
     @ApiProperty()
     @IsString()
     dashboard_id : string
-
+    
     @ApiProperty()
     @IsString()
     model_id : string
