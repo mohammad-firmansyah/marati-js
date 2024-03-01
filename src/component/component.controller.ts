@@ -1,9 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { ComponentService } from './component.service';
 import { CreateComponentDto } from './dto/create-component.dto';
 import { UpdateComponentDto } from './dto/update-component.dto';
+import { AuthGuard } from 'src/guards/auth/auth.guard';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 @Controller('component')
+@ApiTags('Component')
+@ApiBearerAuth()
+@UseGuards(AuthGuard)
 export class ComponentController {
   constructor(private readonly componentService: ComponentService) {}
 

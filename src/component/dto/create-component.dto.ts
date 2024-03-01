@@ -1,4 +1,4 @@
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiBearerAuth, ApiProperty } from "@nestjs/swagger";
 import { JsonObject } from "@prisma/client/runtime/library";
 import { IsEnum, IsJSON, IsNumber, IsString } from "class-validator";
 
