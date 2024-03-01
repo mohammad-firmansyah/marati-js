@@ -1,4 +1,4 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import { ConflictException, HttpStatus, Injectable, UnauthorizedException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -6,6 +6,8 @@ import { hash } from 'bcryptjs';
 import { LoginDto } from './dto/login.dto';
 import { JwtService } from '@nestjs/jwt';
 import { compare } from 'bcryptjs'
+import { response } from 'express';
+
 @Injectable()
 export class UserService {
   constructor(
@@ -46,17 +48,28 @@ export class UserService {
 
   async login(loginDto: LoginDto) {
     const user = await this.findByEmail(loginDto.email);
+    if (user) {
+        const authenticated = await compare(loginDto.password, user.password)
+        if(authenticated){
 
-    if (user && (await compare(loginDto.password, user.password))) {
-      const { password, ...result } = user;
-      const payload = { sub: user.id };
-      return {
-        ...result,
-        access_token: await this.jwtService.signAsync(payload, {
-          secret: process.env.SECRET_KEY,
-          expiresIn: '120s',
-        }),
-      };
+        const { password, ...result } = user;
+        const payload = { sub: user.id };
+
+        return {
+          'is_error': false,
+          'message':'login successfull',
+          'data':{
+            ...result,
+            access_token: await this.jwtService.signAsync(payload, {
+              secret: process.env.SECRET_KEY,
+              expiresIn: '24h',
+            })
+          }
+       
+        }
+      }
+
+      throw new UnauthorizedException();
     }
   }
 
