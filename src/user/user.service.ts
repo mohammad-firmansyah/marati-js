@@ -1,4 +1,4 @@
-import { ConflictException, HttpStatus, Injectable, UnauthorizedException } from '@nestjs/common';
+import { ConflictException, HttpException, HttpStatus, Injectable, UnauthorizedException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -34,7 +34,14 @@ export class UserService {
   async create(createUserDto: CreateUserDto) {
     const checkEmail = await this.findByEmail(createUserDto.email);
     if (checkEmail) {
-      throw new ConflictException('email already registered');
+      throw new HttpException(
+      {
+        is_error: true,
+        message: 'Email already registered',
+        data: {},
+      },
+      HttpStatus.UNPROCESSABLE_ENTITY, // Set the desired HTTP status code
+    );
     }
 
     const newUser = await this.prisma.user.create({
@@ -84,7 +91,14 @@ export class UserService {
         }
       }
 
-      throw new UnauthorizedException();
+      throw new HttpException(
+      {
+        is_error: true,
+        message: 'UnAuthorized',
+        data: {},
+      },
+      HttpStatus.UNAUTHORIZED, // Set the desired HTTP status code
+    );
     }
   }
 
@@ -106,11 +120,14 @@ export class UserService {
   async socialLogin(socialLoginDto:SocialLoginDto){
     const user = await this.verify(socialLoginDto.token);
     if(!user){
-      return {
-        'is_error':true,
-        'message':'Unauthorized',
-        'data':{}
-      }
+      throw new HttpException(
+      {
+        is_error: true,
+        message: 'Unauthorized',
+        data: {},
+      },
+      HttpStatus.UNAUTHORIZED,
+    );
     }
 
     // if the user's email already exists then give the accces token
