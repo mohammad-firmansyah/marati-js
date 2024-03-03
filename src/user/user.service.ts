@@ -117,7 +117,6 @@ export class UserService {
     const isUserExists = await this.prisma.user.findFirst({where:{email:user['email']}})
     
     if (isUserExists){
-      console.log('isUserExists');
       
       const payload = { sub: isUserExists['id'] };
       return {
@@ -144,7 +143,6 @@ export class UserService {
         data: newUserData
       })
       
-      console.log(newUser);
       
       const payload = { sub: newUser['id'] };
       return {
