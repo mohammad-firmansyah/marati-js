@@ -1,12 +1,8 @@
 import { IsEmail, IsString } from "class-validator";
 import { ApiProperty } from "@nestjs/swagger";
 
-export class LoginDto{
-    @ApiProperty()
-    @IsEmail()
-    email:string;
-    
+export class SocialLoginDto{
     @ApiProperty()
     @IsString()
-    password:string;
+    token:string;
 }

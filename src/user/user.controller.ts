@@ -5,10 +5,9 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { LoginDto } from './dto/login.dto';
 import { AuthGuard } from 'src/guards/auth/auth.guard';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { SocialLoginDto } from './dto/social-login.dto';
 @Controller('user')
 @ApiTags('User')
-@ApiBearerAuth()
-@UseGuards(AuthGuard)
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
@@ -20,6 +19,11 @@ export class UserController {
   @Post("login")
   login(@Body() body:LoginDto){
     return this.userService.login(body);
+  }
+  
+  @Post("social-login")
+  socialLogin(@Body() body:SocialLoginDto){
+    return this.userService.socialLogin(body);
   }
 
   // @Post()
