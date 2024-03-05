@@ -15,17 +15,29 @@ export class DashboardService {
         ...createDashboardDto
       },
     });
-    return newDashboard
+    return {
+      'is_error':false,
+      'message':'create dashboard success',
+      'data':newDashboard
+    }
   }
 
   async findAll() {
     const Dashboards = await this.prisma.dashboard.findMany();
-    return Dashboards;
+    return {
+      'is_error':false,
+      'message':'get dashboards success',
+      'data': Dashboards
+    }
   }
 
   async findOne(id: string) {
     const Dashboard = await this.prisma.dashboard.findFirst({where: {id: id}});
-    return Dashboard;
+    return {
+      'is_error':false,
+      'message':'get dashboard success',
+      'data': Dashboard
+    }
   }
 
   async update(id: string, updateDashboardDto: UpdateDashboardDto) {
@@ -34,10 +46,19 @@ export class DashboardService {
       data : updateDashboardDto
     });
 
-    return Dashboard
+    return {
+      'is_error':false,
+      'message':'update dashboard success',
+      'data': Dashboard
+    }
   }
 
   async remove(id: string) {
-    return await this.prisma.dashboard.delete({where:{id:id}})
+    await this.prisma.dashboard.delete({where:{id:id}})
+    return {
+      'is_error':false,
+      'message':'delete dashboard success',
+      'data': {}
+    }
   }
 }
