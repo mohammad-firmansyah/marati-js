@@ -94,9 +94,9 @@ export class UserService {
       throw new HttpException(
       {
         is_error: true,
-        message: 'UnAuthorized',
+        message: 'Unauthorized',
         data: {},
-      },
+      }, 
       HttpStatus.UNAUTHORIZED, // Set the desired HTTP status code
     );
     }
