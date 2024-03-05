@@ -25,7 +25,7 @@ model dashboard {
   password    String?
   description String
   server      String
-  owner       user       @relation(fields: [owner_id], references: [id])
+  owner       user       @relation(fields: [owner_id], references: [id],onDelete: Cascade,onUpdate: Cascade)
   owner_id    String
   components  component[]
   created_at  DateTime   @default(now())
@@ -40,9 +40,9 @@ model component {
   topic        String?
   rules        Json?
   created_at   DateTime     @default(now())
-  dashboard    dashboard    @relation(fields: [dashboard_id], references: [id])
+  dashboard    dashboard    @relation(fields: [dashboard_id], references: [id],onDelete: Cascade,onUpdate: Cascade)
   dashboard_id String
-  model        model        @relation(fields: [model_id], references: [id])
+  model        model        @relation(fields: [model_id], references: [id],onDelete: NoAction,onUpdate: NoAction)
   model_id     String
 }
 
@@ -53,7 +53,7 @@ model model {
   input      Json
   output     Json
   owner_id   String
-  owner      user         @relation(fields: [owner_id], references: [id])
+  owner      user         @relation(fields: [owner_id], references: [id],onDelete: Cascade,onUpdate: Cascade)
   components component[]
   createdAt  DateTime     @default(now())
 }
