@@ -1,4 +1,4 @@
-import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
+import { CanActivate, ExecutionContext, HttpException, HttpStatus, Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Request } from 'express';
@@ -29,7 +29,14 @@ export class AuthGuard implements CanActivate {
 
       return true
     } catch (err :unknown){
-      throw new UnauthorizedException();
+       throw new HttpException(
+      {
+        is_error: true,
+        message: 'Unauthorized',
+        data: {},
+      },
+      HttpStatus.UNAUTHORIZED,
+    );
     }
 
   }
