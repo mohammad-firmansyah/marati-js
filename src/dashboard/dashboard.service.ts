@@ -15,10 +15,12 @@ export class DashboardService {
         ...createDashboardDto
       },
     });
+    const Dashboards = await this.prisma.dashboard.findMany()
+
     return {
       'is_error':false,
       'message':'create dashboard success',
-      'data':newDashboard
+      'data':Dashboards
     }
   }
 
@@ -55,10 +57,11 @@ export class DashboardService {
 
   async remove(id: string) {
     await this.prisma.dashboard.delete({where:{id:id}})
+    let data = await this.prisma.dashboard.findMany()
     return {
       'is_error':false,
       'message':'delete dashboard success',
-      'data': {}
+      'data': data
     }
   }
 }
