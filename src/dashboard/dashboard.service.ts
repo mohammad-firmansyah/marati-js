@@ -24,8 +24,8 @@ export class DashboardService {
     }
   }
 
-  async findAll() {
-    const Dashboards = await this.prisma.dashboard.findMany();
+  async findAll(id:string) {
+    const Dashboards = await this.prisma.dashboard.findMany({where:{owner_id : id}});
     return {
       'is_error':false,
       'message':'get dashboards success',
@@ -41,6 +41,7 @@ export class DashboardService {
       'data': Dashboard
     }
   }
+  
 
   async update(id: string, updateDashboardDto: UpdateDashboardDto) {
     const Dashboard = await this.prisma.dashboard.update({

@@ -17,9 +17,9 @@ export class DashboardController {
     return this.dashboardService.create(createDashboardDto);
   }
 
-  @Get()
-  findAll() {
-    return this.dashboardService.findAll();
+  @Get(':owner_id')
+  findAll(@Param('owner_id') owner_id:string) {
+    return this.dashboardService.findAll(owner_id);
   }
 
   @Get(':id')
