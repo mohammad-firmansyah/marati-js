@@ -1,6 +1,6 @@
 import { ApiBearerAuth, ApiProperty } from "@nestjs/swagger";
 import { JsonObject } from "@prisma/client/runtime/library";
-import { IsEnum, IsJSON, IsNumber, IsString } from "class-validator";
+import { IsEnum, IsJSON, IsNumber, IsOptional, IsString } from "class-validator";
 
 export enum ComponentType {
   TEXT = 'TEXT',
@@ -9,7 +9,7 @@ export enum ComponentType {
   LINEGRAPH = 'LINEGRAPH'
 }
 
-export class CreateComponentDto {
+export class  CreateComponentDto {
     @ApiProperty()
     @IsEnum(ComponentType)
     type : ComponentType
@@ -21,6 +21,14 @@ export class CreateComponentDto {
     @ApiProperty()
     @IsNumber()
     y :number
+    
+    @ApiProperty()
+    @IsNumber()
+    w : number
+    
+    @ApiProperty()
+    @IsNumber()
+    h :number
     
     @ApiProperty()
     @IsString()
@@ -39,6 +47,7 @@ export class CreateComponentDto {
     dashboard_id : string
     
     @ApiProperty()
+    @IsOptional()
     @IsString()
     model_id : string
 }
