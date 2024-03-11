@@ -36,14 +36,16 @@ model component {
   type         ComponentType @default(TEXT)
   x            Int
   y            Int
+  w            Int
+  h            Int
   content      String
   topic        String?
   rules        Json?
   created_at   DateTime     @default(now())
   dashboard    dashboard    @relation(fields: [dashboard_id], references: [id],onDelete: Cascade,onUpdate: Cascade)
   dashboard_id String
-  model        model        @relation(fields: [model_id], references: [id],onDelete: NoAction,onUpdate: NoAction)
-  model_id     String
+  model        model?        @relation(fields: [model_id], references: [id],onDelete: NoAction,onUpdate: NoAction)
+  model_id     String?
 }
 
 model model {
