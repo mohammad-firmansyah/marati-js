@@ -17,7 +17,7 @@ export class ComponentController {
     return this.componentService.create(createComponentDto);
   }
 
-  @Get()
+  @Get(':id/dashboard')
   findAll(@Param('id') id : string) {
     return this.componentService.findAll(id);
   }
