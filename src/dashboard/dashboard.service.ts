@@ -15,7 +15,7 @@ export class DashboardService {
         ...createDashboardDto
       },
     });
-    const Dashboards = await this.prisma.dashboard.findMany()
+    const Dashboards = await this.prisma.dashboard.findMany({where:{owner_id:createDashboardDto.owner_id}})
 
     return {
       'is_error':false,
