@@ -34,7 +34,7 @@ export class DashboardService {
   }
 
   async findOne(id: string) {
-    const Dashboard = await this.prisma.dashboard.findFirst({where: {id: id}});
+    const Dashboard = await this.prisma.dashboard.findMany({where: {id: id},include:{components:true}});
     return {
       'is_error':false,
       'message':'get dashboard success',
@@ -56,13 +56,16 @@ export class DashboardService {
     }
   }
 
-  async remove(id: string) {
-    await this.prisma.dashboard.delete({where:{id:id}})
-    let data = await this.prisma.dashboard.findMany()
+  async remove(id : string,owner_id : string) {
+    const [_,Dashboards] = await this.prisma.$transaction([
+      this.prisma.dashboard.delete({where:{id:id}}),
+      this.prisma.dashboard.findMany({where:{owner_id:owner_id}})
+    ])
+
     return {
       'is_error':false,
       'message':'delete dashboard success',
-      'data': data
+      'data': Dashboards
     }
   }
 }

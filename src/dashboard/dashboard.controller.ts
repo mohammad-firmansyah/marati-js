@@ -22,7 +22,7 @@ export class DashboardController {
     return this.dashboardService.findAll(owner_id);
   }
 
-  @Get(':id')
+  @Get(':id/detail')
   findOne(@Param('id') id: string) {
     return this.dashboardService.findOne(id);
   }
@@ -32,8 +32,8 @@ export class DashboardController {
     return this.dashboardService.update(id, updateDashboardDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.dashboardService.remove(id);
+  @Delete(':id/:ownerId')
+  remove(@Param('id') id: string,@Param('ownerId') owner_id:string) {
+    return this.dashboardService.remove(id,owner_id);
   }
 }
