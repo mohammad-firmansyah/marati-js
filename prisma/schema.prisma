@@ -52,9 +52,11 @@ model model {
   id         String       @id @default(uuid())
   name       String
   filename   String
+  description String @default("") 
   input      Json
   output     Json
   owner_id   String
+  category   String
   owner      user         @relation(fields: [owner_id], references: [id],onDelete: Cascade,onUpdate: Cascade)
   components component[]
   createdAt  DateTime     @default(now())
