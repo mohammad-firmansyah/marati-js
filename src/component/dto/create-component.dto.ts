@@ -11,6 +11,10 @@ export enum ComponentType {
 
 export class  CreateComponentDto {
     @ApiProperty()
+    @IsString()
+    id : string
+   
+    @ApiProperty()
     @IsEnum(ComponentType)
     type : ComponentType
     

@@ -38,9 +38,10 @@ export class ComponentService {
   }
 
   async update(id: string, updateComponentDto: UpdateComponentDto) {
+
     const data = await this.prisma.component.update({
       where : {id},
-      data:updateComponentDto
+      data: updateComponentDto
     }) 
     return {
       'is_error':false,
